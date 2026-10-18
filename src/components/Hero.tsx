@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Play, Zap, Shield, Globe } from 'lucide-react';
 
 export default function Hero() {
@@ -61,10 +62,10 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
-            <button className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent rounded-xl font-semibold text-white hover:opacity-90 transition-all shadow-lg shadow-primary/25 animate-pulse-glow">
+            <Link to="/signup" className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-accent rounded-xl font-semibold text-white hover:opacity-90 transition-all shadow-lg shadow-primary/25 animate-pulse-glow">
               Deploy Your Agent Free
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
             <button className="flex items-center gap-2 px-8 py-4 glass-light rounded-xl font-medium text-white hover:bg-slate-800/50 transition-all">
               <Play className="w-4 h-4" />
               Watch 2-min Demo

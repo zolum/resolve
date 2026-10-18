@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Check, Zap, TrendingUp, Building2, ArrowRight } from 'lucide-react';
 
 const plans = [
@@ -141,14 +142,14 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <button className={`w-full py-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center gap-2 ${
+              <Link to="/signup" className={`w-full py-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center gap-2 ${
                 plan.popular
                   ? 'bg-gradient-to-r from-primary to-accent text-white hover:opacity-90'
                   : 'bg-slate-800 text-white hover:bg-slate-700'
               }`}>
                 {plan.cta}
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </Link>
             </motion.div>
           ))}
         </div>

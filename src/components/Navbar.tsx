@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Menu, X, Bot, ChevronDown } from 'lucide-react';
 
 export default function Navbar() {
@@ -15,14 +16,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
               <Bot className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold text-white">
               Resolve<span className="gradient-text">OS</span>
             </span>
-          </div>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
@@ -39,12 +40,12 @@ export default function Navbar() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <button className="text-sm text-slate-300 hover:text-white transition-colors px-3 py-2">
+            <Link to="/signin" className="text-sm text-slate-300 hover:text-white transition-colors px-3 py-2">
               Sign In
-            </button>
-            <button className="text-sm font-medium text-white bg-gradient-to-r from-primary to-accent px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
+            </Link>
+            <Link to="/signup" className="text-sm font-medium text-white bg-gradient-to-r from-primary to-accent px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
               Deploy Free →
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Toggle */}
@@ -71,9 +72,10 @@ export default function Navbar() {
               <a href="#how-it-works" className="block text-sm text-slate-300 hover:text-white py-2">How It Works</a>
               <a href="#pricing" className="block text-sm text-slate-300 hover:text-white py-2">Pricing</a>
               <a href="#comparison" className="block text-sm text-slate-300 hover:text-white py-2">Compare</a>
-              <button className="w-full text-sm font-medium text-white bg-gradient-to-r from-primary to-accent px-4 py-2.5 rounded-lg mt-3">
+              <Link to="/signin" className="block text-sm text-slate-300 hover:text-white py-2">Sign In</Link>
+              <Link to="/signup" className="block w-full text-center text-sm font-medium text-white bg-gradient-to-r from-primary to-accent px-4 py-2.5 rounded-lg mt-3">
                 Deploy Free →
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}

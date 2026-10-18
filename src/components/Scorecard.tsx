@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Search, TrendingDown, AlertTriangle, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const mockResults = [
@@ -175,10 +176,10 @@ export default function Scorecard() {
                   </div>
 
                   {/* CTA */}
-                  <button className="w-full py-3 bg-gradient-to-r from-primary to-accent rounded-xl font-medium text-sm text-white hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                  <Link to="/signup" className="w-full py-3 bg-gradient-to-r from-primary to-accent rounded-xl font-medium text-sm text-white hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
                     See What ResolveOS Can Do For You
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </Link>
                 </motion.div>
               )}
             </AnimatePresence>
