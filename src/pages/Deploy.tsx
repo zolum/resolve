@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Bot, Link, Upload, Sliders, Rocket, Check, ArrowRight, ArrowLeft,
-  Globe, MessageSquare, Phone, Mail, Sparkles, Brain
+  Globe, MessageSquare, Phone, Mail, Sparkles, Brain, Zap, Activity
 } from 'lucide-react';
 
 const steps = [
@@ -256,6 +256,33 @@ export default function Deploy() {
                       <p className="text-xs text-slate-400 mt-1">
                         Your AI agent has learned from 47 pages and can answer 94% of common questions.
                       </p>
+                    </div>
+
+                    {/* Real-time URL Detection */}
+                    <div className="p-4 bg-primary/10 border border-primary/30 rounded-lg">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Activity className="w-4 h-4 text-primary-light" />
+                        <span className="text-sm font-medium text-white">URL Detection Active</span>
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse ml-auto" />
+                      </div>
+                      <p className="text-xs text-slate-400 mb-3">
+                        Your AI agent will now capture customer URLs in real-time and respond with contextual intelligence.
+                      </p>
+                      <div className="space-y-1.5">
+                        {[
+                          { url: '/products/*', action: 'Product context + stock status' },
+                          { url: '/orders/*', action: 'Order tracking + delivery updates' },
+                          { url: '/checkout/*', action: 'Cart recovery + payment help' },
+                          { url: '/account/*', action: 'Account management assistance' },
+                        ].map((item) => (
+                          <div key={item.url} className="flex items-center gap-2 text-[10px]">
+                            <Globe className="w-3 h-3 text-primary-light flex-shrink-0" />
+                            <code className="text-primary-light font-mono">{item.url}</code>
+                            <span className="text-slate-500">→</span>
+                            <span className="text-slate-400">{item.action}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}

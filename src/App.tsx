@@ -1,9 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import HowItWorks from './components/HowItWorks';
+import LiveUrlFeed from './components/LiveUrlFeed';
 import Scorecard from './components/Scorecard';
 import TargetMarket from './components/TargetMarket';
 import Stats from './components/Stats';
@@ -13,6 +14,7 @@ import TechStack from './components/TechStack';
 import FAQ from './components/FAQ';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import FloatingChatWidget from './components/FloatingChatWidget';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Deploy from './pages/Deploy';
@@ -31,6 +33,7 @@ function LandingPage() {
       <Hero />
       <Features />
       <HowItWorks />
+      <LiveUrlFeed />
       <Scorecard />
       <TargetMarket />
       <Stats />
@@ -40,6 +43,7 @@ function LandingPage() {
       <FAQ />
       <CTA />
       <Footer />
+      <FloatingChatWidget />
     </>
   );
 }
@@ -60,7 +64,7 @@ function DeployRoute({ children }: { children: ReactNode }) {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/signup" element={<SignUp />} />
@@ -84,7 +88,7 @@ function App() {
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </AuthProvider>
   );
 }

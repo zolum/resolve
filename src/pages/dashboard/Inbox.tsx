@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Search, Filter, MoreHorizontal, Send, Paperclip, Smile,
-  Bot, User, Clock, Tag, ChevronDown, Star, Archive, Trash2
+  Bot, User, Clock, Tag, ChevronDown, Star, Archive, Trash2,
+  Globe, Link2, MapPin, Zap
 } from 'lucide-react';
 
 const conversations = [
@@ -17,6 +18,9 @@ const conversations = [
     status: 'ai-handling',
     channel: 'chat',
     sentiment: 'frustrated',
+    currentUrl: '/orders/7842',
+    pageTitle: 'Order #7842 - Tracking',
+    referrer: 'email-campaign',
   },
   {
     id: 2,
@@ -29,6 +33,9 @@ const conversations = [
     status: 'resolved',
     channel: 'email',
     sentiment: 'happy',
+    currentUrl: '/account/orders',
+    pageTitle: 'My Orders',
+    referrer: 'direct',
   },
   {
     id: 3,
@@ -41,6 +48,9 @@ const conversations = [
     status: 'needs-human',
     channel: 'chat',
     sentiment: 'neutral',
+    currentUrl: '/account/subscription',
+    pageTitle: 'Subscription Management',
+    referrer: 'google-search',
   },
   {
     id: 4,
@@ -53,6 +63,9 @@ const conversations = [
     status: 'ai-handling',
     channel: 'email',
     sentiment: 'frustrated',
+    currentUrl: '/products/blue-widget-xl',
+    pageTitle: 'Blue Widget XL - Product Page',
+    referrer: 'instagram-ad',
   },
   {
     id: 5,
@@ -65,6 +78,9 @@ const conversations = [
     status: 'resolved',
     channel: 'chat',
     sentiment: 'happy',
+    currentUrl: '/products/summer-dress',
+    pageTitle: 'Summer Dress - Size Guide',
+    referrer: 'facebook-ad',
   },
   {
     id: 6,
@@ -77,6 +93,9 @@ const conversations = [
     status: 'needs-human',
     channel: 'chat',
     sentiment: 'frustrated',
+    currentUrl: '/developers/docs/api',
+    pageTitle: 'API Documentation',
+    referrer: 'direct',
   },
 ];
 
@@ -187,34 +206,59 @@ export default function Inbox() {
       {/* Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Chat Header */}
-        <div className="h-14 border-b border-slate-800 flex items-center justify-between px-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-sm">
-              {selectedConversation.avatar}
+        <div className="h-auto min-h-14 border-b border-slate-800 flex flex-col px-4 py-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-sm">
+                {selectedConversation.avatar}
+              </div>
+              <div>
+                <div className="text-sm font-medium text-white">{selectedConversation.name}</div>
+                <div className="text-[10px] text-slate-500">{selectedConversation.email} • via {selectedConversation.channel}</div>
+              </div>
             </div>
-            <div>
-              <div className="text-sm font-medium text-white">{selectedConversation.name}</div>
-              <div className="text-[10px] text-slate-500">{selectedConversation.email} • via {selectedConversation.channel}</div>
+            <div className="flex items-center gap-2">
+              <span className={`text-[10px] px-2 py-1 rounded-full ${
+                selectedConversation.sentiment === 'frustrated' ? 'bg-red-500/20 text-red-400' :
+                selectedConversation.sentiment === 'happy' ? 'bg-green-500/20 text-green-400' :
+                'bg-slate-700 text-slate-400'
+              }`}>
+                {selectedConversation.sentiment === 'frustrated' ? '😤 Frustrated' :
+                 selectedConversation.sentiment === 'happy' ? '😊 Happy' : '😐 Neutral'}
+              </span>
+              <button className="p-1.5 hover:bg-slate-800 rounded-lg transition-colors">
+                <Star className="w-4 h-4 text-slate-400" />
+              </button>
+              <button className="p-1.5 hover:bg-slate-800 rounded-lg transition-colors">
+                <Archive className="w-4 h-4 text-slate-400" />
+              </button>
+              <button className="p-1.5 hover:bg-slate-800 rounded-lg transition-colors">
+                <MoreHorizontal className="w-4 h-4 text-slate-400" />
+              </button>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className={`text-[10px] px-2 py-1 rounded-full ${
-              selectedConversation.sentiment === 'frustrated' ? 'bg-red-500/20 text-red-400' :
-              selectedConversation.sentiment === 'happy' ? 'bg-green-500/20 text-green-400' :
-              'bg-slate-700 text-slate-400'
-            }`}>
-              {selectedConversation.sentiment === 'frustrated' ? '😤 Frustrated' :
-               selectedConversation.sentiment === 'happy' ? '😊 Happy' : '😐 Neutral'}
-            </span>
-            <button className="p-1.5 hover:bg-slate-800 rounded-lg transition-colors">
-              <Star className="w-4 h-4 text-slate-400" />
-            </button>
-            <button className="p-1.5 hover:bg-slate-800 rounded-lg transition-colors">
-              <Archive className="w-4 h-4 text-slate-400" />
-            </button>
-            <button className="p-1.5 hover:bg-slate-800 rounded-lg transition-colors">
-              <MoreHorizontal className="w-4 h-4 text-slate-400" />
-            </button>
+          {/* Real-time URL Detection */}
+          <div className="flex items-center gap-2 mt-2 p-2 bg-primary/5 border border-primary/20 rounded-lg">
+            <div className="flex items-center gap-1.5 flex-shrink-0">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              <Globe className="w-3 h-3 text-primary-light" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[9px] text-slate-500">Currently viewing:</span>
+                <span className="text-[10px] text-primary-light font-mono truncate">
+                  bloombox.com{selectedConversation.currentUrl}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className="text-[9px] text-slate-500">{selectedConversation.pageTitle}</span>
+                <span className="text-[9px] text-slate-600">• via {selectedConversation.referrer}</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 px-2 py-0.5 bg-green-500/10 rounded-full flex-shrink-0">
+              <Zap className="w-2.5 h-2.5 text-green-400" />
+              <span className="text-[9px] text-green-400 font-medium">AI Aware</span>
+            </div>
           </div>
         </div>
 
@@ -319,8 +363,14 @@ export default function Inbox() {
           </div>
 
           <div className="glass-light rounded-xl p-3">
-            <div className="text-xs font-medium text-white mb-2">AI Insights</div>
+            <div className="flex items-center gap-1.5 mb-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              <div className="text-xs font-medium text-white">AI Insights (URL-Aware)</div>
+            </div>
             <div className="space-y-2">
+              <div className="text-[10px] text-slate-400">
+                <span className="text-purple-400">🔍</span> Detected: Customer on order tracking page
+              </div>
               <div className="text-[10px] text-slate-400">
                 <span className="text-yellow-400">⚠️</span> Customer has been waiting 3+ days
               </div>
@@ -329,6 +379,34 @@ export default function Inbox() {
               </div>
               <div className="text-[10px] text-slate-400">
                 <span className="text-blue-400">📊</span> LTV: $1,240 • High value customer
+              </div>
+              <div className="text-[10px] text-slate-400">
+                <span className="text-cyan-400">🎯</span> Suggested: Proactive shipping update
+              </div>
+            </div>
+          </div>
+
+          <div className="glass-light rounded-xl p-3 border border-primary/20">
+            <div className="text-xs font-medium text-white mb-2 flex items-center gap-1.5">
+              <Link2 className="w-3 h-3 text-primary-light" />
+              URL Context Analysis
+            </div>
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="text-slate-500">Page Intent</span>
+                <span className="text-primary-light">Order tracking</span>
+              </div>
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="text-slate-500">Emotion Signal</span>
+                <span className="text-orange-400">Frustrated</span>
+              </div>
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="text-slate-500">Time on Page</span>
+                <span className="text-white">2m 34s</span>
+              </div>
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="text-slate-500">Scroll Depth</span>
+                <span className="text-white">78%</span>
               </div>
             </div>
           </div>

@@ -113,12 +113,19 @@ export default function HowItWorks() {
                 </div>
               </div>
               
+              {/* URL Detection Banner */}
+              <div className="flex items-center gap-2 p-2 bg-primary/5 border border-primary/20 rounded-lg">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-[9px] text-slate-500">🔍 AI detected:</span>
+                <code className="text-[9px] text-primary-light font-mono">bloombox.com/orders/7842</code>
+              </div>
+              
               <div className="flex items-start gap-3 justify-end">
                 <div className="bg-primary/20 border border-primary/30 rounded-xl rounded-tr-none px-4 py-3 text-sm text-slate-200 max-w-sm">
-                  <p>I found your order #7842! It's currently at the local distribution center and will be delivered tomorrow by 5 PM.</p>
+                  <p>I see you're on the order tracking page! Order #7842 is at the local distribution center — delivery tomorrow by 5 PM. I've also applied a 10% courtesy credit for the delay.</p>
                   <div className="mt-2 flex items-center gap-2">
                     <span className="text-[10px] px-2 py-0.5 bg-green-500/20 text-green-400 rounded-full">96% confidence</span>
-                    <span className="text-[10px] text-slate-500">📎 Shipping API</span>
+                    <span className="text-[10px] text-slate-500">📎 Shipping API + URL Context</span>
                   </div>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
