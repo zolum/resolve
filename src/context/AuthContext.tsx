@@ -34,7 +34,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const signIn = (email: string) => {
+  const signIn = (email: string, _password?: string) => {
     setUser({
       name: 'Demo User',
       email,
